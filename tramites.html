@@ -134,6 +134,42 @@
             color: #0099FF;
         }
         
+        /* --- BOTÓN CERRAR SESIÓN --- */
+        .logout-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: 900;
+            font-size: 1.1em;
+            margin-top: 20px;
+            box-sizing: border-box;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(255, 107, 107, 0.3);
+        }
+        
+        .logout-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(255, 107, 107, 0.4);
+            border-color: #ff4757;
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+        }
+        
+        .logout-button:active {
+            transform: translateY(0);
+        }
+        
+        .logout-button .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
         /* --- FOOTER --- */
         .footer {
             padding: 15px;
@@ -166,6 +202,10 @@
             
             <a href="historial.html" class="menu-button">
                 <span class="icon">📅</span> HISTORIAL
+            </a>
+            
+            <a href="inicioSesion.html" class="logout-button">
+                <span class="icon">🚪</span> CERRAR SESIÓN
             </a>
         </main>
         
