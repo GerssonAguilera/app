@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trámites Activos - Fuerza Mayor</title>
+    <style>
+        /* --- RESET & FONT --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            min-height: 100%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* --- VISTA ESCRITORIO --- */
+        @media (min-width: 500px) {
+            .app-container {
+                height: 700px;
+                min-height: auto;
+                border-radius: 30px;
+                overflow: hidden;
+            }
+        }
+
+        /* --- HEADER --- */
+        .header { 
+            background: linear-gradient(135deg, #0099FF, #0077CC); 
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px; 
+            position: relative;
+        }
+        
+        .logo { 
+            font-size: 2.5em; 
+            background-color: white; 
+            color: #0099FF; 
+            border-radius: 50%; 
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header h1 { 
+            margin: 0; 
+            font-size: 1.6em; 
+            font-weight: 900; 
+            line-height: 1.3;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- BOTÓN VOLVER --- */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-3px);
+        }
+        
+        .back-button .arrow {
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .content { 
+            flex-grow: 1; 
+            padding: 30px 25px; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-y: auto;
+        }
+        
+        .content h2 { 
+            font-weight: 900; 
+            font-size: 1.8em; 
+            margin: 0 0 25px 0;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        
+        /* --- FILTROS --- */
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 700;
+            background-color: #e9ecef;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #0099FF, #0077CC);
+            color: white;
+        }
+        
+        /* --- LISTA DE TRÁMITES --- */
+        .tramites-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .tramite-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #0099FF;
+            transition: all 0.3s ease;
+        }
+        
+        .tramite-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tramite-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .tramite-title {
+            font-weight: 900;
+            font-size: 1.1em;
+            color: #333;
+            margin: 0;
+        }
+        
+        .tramite-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8em;
+        }
+        
+        .status-abierto {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-left: 5px solid #2e7d32;
+        }
+        
+        .status-proceso {
+            background-color: #fff3e0;
+            color: #ef6c00;
+            border-left: 5px solid #ef6c00;
+        }
+        
+        .tramite-details {
+            margin-bottom: 15px;
+        }
+        
+        .tramite-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .tramite-detail .icon {
+            margin-right: 10px;
+            width: 16px;
+            text-align: center;
+        }
+        
+        .tramite-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+        
+        .tramite-date {
+            font-size: 0.8em;
+            color: #999;
+            font-weight: 700;
+        }
+        
+        .tramite-action {
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #0099FF, #0077CC);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tramite-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 153, 255, 0.3);
+        }
+        
+        /* --- FOOTER --- */
+        .footer {
+            padding: 15px;
+            text-align: center;
+            color: #888;
+            font-size: 0.8em;
+            font-weight: 700;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        /* --- ESTADO VACÍO --- */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+        
+        .empty-state .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state p {
+            margin: 0;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <a href="tramites.html" class="back-button">
+                <span class="arrow">←</span>
+            </a>
+            <div class="logo">✊</div>
+            <h1>TRABAJO DE<br>FUERZA MAYOR</h1>
+        </header>
+        
+        <main class="content">
+            <h2>TRÁMITES ACTIVOS</h2>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="todos">Todos</button>
+                <button class="filter-btn" data-filter="abierto">Abiertos</button>
+                <button class="filter-btn" data-filter="proceso">En Proceso</button>
+                <button class="filter-btn" data-filter="proceso">Cerrado</button>
+            </div>
+            
+            <div class="tramites-list">
+                <!-- Trámite ABIERTO -->
+                <div class="tramite-card" data-status="abierto">
+                    <div class="tramite-header">
+                        <h3 class="tramite-title">Solicitud de Medicamentos</h3>
+                        <span class="tramite-status status-abierto">ABIERTO</span>
+                    </div>
+                    <div class="tramite-details">
+                        <div class="tramite-detail">
+                            <span class="icon">📍</span>
+                            <span>Calle 162 #55-09, Bogotá</span>
+                        </div>
+                        <div class="tramite-detail">
+                            <span class="icon">⏰</span>
+                            <span>Urgencia: Alta</span>
+                        </div>
+                        <div class="tramite-detail">
+                            <span class="icon">👤</span>
+                            <span>Operador: Asignando...</span>
+                        </div>
+                    </div>
+                    <div class="tramite-footer">
+                        <span class="tramite-date">Solicitado: 15/09/2023</span>
+                        <button class="tramite-action">Ver Detalles</button>
+                    </div>
+                </div>
+                
+                <!-- Trámite EN PROCESO -->
+                <div class="tramite-card" data-status="proceso">
+                    <div class="tramite-header">
+                        <h3 class="tramite-title">Pago de servicios</h3>
+                        <span class="tramite-status status-proceso">EN PROCESO</span>
+                    </div>
+                    <div class="tramite-details">
+                        <div class="tramite-detail">
+                            <span class="icon">📍</span>
+                            <span>Carrera 45 #72-15, Medellín</span>
+                        </div>
+                        <div class="tramite-detail">
+                            <span class="icon">⏰</span>
+                            <span>Urgencia: Media</span>
+                        </div>
+                        <div class="tramite-detail">
+                            <span class="icon">👤</span>
+                            <span>Operador: Carlos Rodríguez</span>
+                        </div>
+                    </div>
+                    <div class="tramite-footer">
+                        <span class="tramite-date">Solicitado: 10/09/2023</span>
+                        <button class="tramite-action">Seguimiento</button>
+                    </div>
+                </div>
+                
+                <!-- Trámite CERRADO -->
+                <div class="tramite-card" data-status="cerrado">
+                    <div class="tramite-header">
+                        <h3 class="tramite-title">Entrega de Alimentos</h3>
+                        <span class="tramite-status status-cerrado">CERRADO</span>
+                    </div>
+                    <div class="tramite-details">
+                        <div class="tramite-detail">
+                            <span class="icon">📍</span>
+                            <span>Calle 80 #12-45, Cali</span>
+                        </div>
+                        <div class="tramite-detail">
+                            <span class="icon">⏰</span>
+                            <span>Urgencia: Baja</span>
+                        </div>
+                        <div class="tramite-detail">
+                            <span class="icon">👤</span>
+                            <span>Operador: María González</span>
+                        </div>
+                    </div>
+                    <div class="tramite-footer">
+                        <span class="tramite-date">Completado: 05/09/2023</span>
+                        <button class="tramite-action">Ver Evaluación</button>
+                    </div>
+                </div>
+
+                <!-- Trámite CERRADO -->
+                <div class="tramite-card" data-status="cerrado">
+                    <div class="tramite-header">
+                        <h3 class="tramite-title">Pago de servicios</h3>
+                        <span class="tramite-status status-cerrado">CERRADO</span>
+                    </div>
+                    <div class="tramite-details">
+                        <div class="tramite-detail">
+                            <span class="icon">📍</span>
+                            <span>Calle 80 #12-45, Cali</span>
+                        </div>
+                        <div class="tramite-detail">
+                            <span class="icon">⏰</span>
+                            <span>Urgencia: Baja</span>
+                        </div>
+                        <div class="tramite-detail">
+                            <span class="icon">👤</span>
+                            <span>Operador: María González</span>
+                        </div>
+                    </div>
+                    <div class="tramite-footer">
+                        <span class="tramite-date">Completado: 03/09/2023</span>
+                        <button class="tramite-action">Ver Evaluación</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <div class="footer">
+            &copy; 2023 Fuerza Mayor
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const tramiteCards = document.querySelectorAll('.tramite-card');
+            
+            // Funcionalidad de filtros
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Remover clase active de todos los botones
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    // Filtrar los trámites según el estado seleccionado
+                    tramiteCards.forEach(card => {
+                        const status = card.getAttribute('data-status');
+                        
+                        if (filter === 'todos') {
+                            card.style.display = 'block';
+                        } else if (filter === status) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Funcionalidad de botones de acción
+            const actionButtons = document.querySelectorAll('.tramite-action');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.tramite-card');
+                    const title = card.querySelector('.tramite-title').textContent;
+                    alert(`Has seleccionado: ${title}`);
+                    // Aquí se redirigiría a la página de detalles correspondiente
+                });
+            });
+        });
+    </script>
+</body>
+</html>
