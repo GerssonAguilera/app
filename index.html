@@ -3,33 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Fuerza Mayor</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Identificación</title>
+    <style>
+        /* --- ESTE ES EL ÚNICO BLOQUE DE CSS QUE DEBE EXISTIR --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f2f5;
+        }
+
+        .app-container {
+            width: 100%;
+            min-height: 100%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 500px) {
+            .app-container {
+                width: 375px;
+                height: 812px;
+                min-height: auto;
+                border: 1px solid #ddd;
+                border-radius: 40px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                overflow: hidden;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .header { 
+            background-color: #0099FF; 
+            color: white; 
+            padding: 20px; 
+            text-align: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px; 
+            flex-shrink: 0; 
+        }
+        .header .logo { font-size: 3em; }
+        .header h1 { 
+            margin: 0; 
+            font-size: 1.5em; 
+            font-weight: 900; 
+            line-height: 1.2; 
+        }
+        .content { 
+            flex-grow: 1; 
+            padding: 30px 25px; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 20px; 
+            overflow-y: auto; 
+        }
+        .content h2 { 
+            font-weight: 900; 
+            font-size: 1.8em; 
+            margin: 0 0 10px 0; 
+        }
+        .user-icon { 
+            font-size: 5em; 
+            background-color: white; 
+            color: #0099FF; 
+            border-radius: 50%; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+        }
+        .btn { 
+            width: 100%; 
+            padding: 15px; 
+            border-radius: 30px; 
+            font-size: 1.2em; 
+            font-weight: 900; 
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin-top: 10px; 
+            flex-shrink: 0; 
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .btn-primary { 
+            background-color: #0099FF; 
+            color: white; 
+            border: 3px solid black; 
+        }
+        .btn-secondary { 
+            background-color: white; 
+            color: black; 
+            border: 3px solid black; 
+        }
+        
+        /* Nuevos estilos para mejorar la apariencia */
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            transition: all 0.2s ease;
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="login-box">
-            <div class="icon-container">
-                <img src="https://i.imgur.com/JkE5L68.png" alt="Icono de Usuarios" class="user-icon">
-            </div>
-            <h1 class="title">TRABAJO DE FUERZA MAYOR</h1>
-            <h2 class="subtitle">IDENTIFICATE</h2>
-            
-            <form id="login-form">
-                <input type="email" id="email" placeholder="Correo Electrónico" required>
-                <input type="password" id="password" placeholder="Contraseña" required>
-                <button type="submit" class="btn-primary">INGRESAR COMO USUARIO</button>
-            </form>
-
-            <div class="links">
-                <a href="recuperar.html">¿Olvidaste tu contraseña?</a>
-                <a href="registro.html">¿No tienes cuenta? Regístrate</a>
-            </div>
+    <div class="app-container">
+        <div class="header" style="padding-top: 60px; padding-bottom: 40px; flex-direction: column;">
+            <div class="user-icon">👤</div>
+            <h1>TRABAJO DE <br> FUERZA MAYOR</h1>
         </div>
+        <main class="content">
+            <h2>IDENTIFICATE</h2>
+            <!-- Corregido: cambié el button por un enlace con estilo de botón -->
+            <a href="https://sites.google.com/estudiantes.areandina.edu.co/fuerza-mayor/registro" class="btn btn-primary" style="color: black; border-color:black;" target="_top">USUARIO</a>
+            
+            <!-- Agregué un botón adicional para demostrar cómo funcionaría con JavaScript -->
+            <button class="btn btn-secondary" onclick="alert('Función de usuario activada')">USUARIO (con JavaScript)</button>
+        </main>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
-    <script src="app.js"></script>
+    <script>
+        // Aquí puedes agregar funcionalidad JavaScript si necesitas que los botones hagan algo más
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página cargada correctamente');
+            
+            // Ejemplo de cómo agregar funcionalidad a un botón
+            const userButton = document.querySelector('.btn-secondary');
+            if (userButton) {
+                userButton.addEventListener('click', function() {
+                    // Aquí puedes agregar la lógica para la identificación del usuario
+                    console.log('Botón de usuario clickeado');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
