@@ -29,6 +29,7 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         /* --- VISTA ESCRITORIO --- */
@@ -181,6 +182,66 @@
             color: #666;
             font-size: 0.9em;
         }
+        
+        /* --- MODAL DE CONFIRMACIÓN --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .modal {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-icon {
+            font-size: 4em;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        
+        .modal-title {
+            font-weight: 900;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .modal-message {
+            margin-bottom: 25px;
+            color: #666;
+            font-weight: 700;
+        }
+        
+        .modal-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #0099FF, #0077CC);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 153, 255, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -208,13 +269,48 @@
                 <span class="arrow">➔</span>
             </a>
             
-            <a href="#" class="btn-primary">SOLICITAR SERVICIO</a>
+            <button id="solicitarBtn" class="btn-primary">SOLICITAR SERVICIO</button>
             
             <div class="footer-support">
                 <img src="https://cdn-icons-png.flaticon.com/512/1006/1006555.png" alt="Soporte Técnico">
                 <p>SOPORTE TÉCNICO</p>
             </div>
         </main>
+        
+        <!-- Modal de confirmación -->
+        <div class="modal-overlay" id="confirmModal">
+            <div class="modal">
+                <div class="modal-icon">✅</div>
+                <div class="modal-title">¡ÉXITO!</div>
+                <div class="modal-message">Su solicitud fue creada con éxito</div>
+                <button class="modal-btn" id="acceptBtn">ACEPTAR</button>
+            </div>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const solicitarBtn = document.getElementById('solicitarBtn');
+            const confirmModal = document.getElementById('confirmModal');
+            const acceptBtn = document.getElementById('acceptBtn');
+            
+            // Mostrar modal al hacer clic en solicitar servicio
+            solicitarBtn.addEventListener('click', function() {
+                confirmModal.style.display = 'flex';
+            });
+            
+            // Redirigir a tramites.html al hacer clic en aceptar
+            acceptBtn.addEventListener('click', function() {
+                window.location.href = 'tramites.html';
+            });
+            
+            // Cerrar modal si se hace clic fuera del contenido
+            confirmModal.addEventListener('click', function(e) {
+                if (e.target === confirmModal) {
+                    confirmModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
