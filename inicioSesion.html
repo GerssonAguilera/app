@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title>Iniciar Sesión - Fuerza Mayor</title>
     <style>
         /* --- RESET & FONT --- */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
@@ -63,6 +63,7 @@
             font-size: 1.5em; 
             font-weight: 900; 
             line-height: 1.2; 
+            text-transform: uppercase;
         }
         .content { 
             flex-grow: 1; 
@@ -78,26 +79,32 @@
         .content h2 { 
             font-weight: 900; 
             font-size: 1.8em; 
-            margin: 0 0 10px 0; 
+            margin: 0 0 20px 0; 
+            text-transform: uppercase;
+            color: #333;
         }
         .form-group { 
             width: 100%; 
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
         }
         .input-field { 
             width: 100%; 
             padding: 15px; 
-            border: 2px solid black; 
-            border-radius: 8px; 
+            border: 2px solid #0099FF; 
+            border-radius: 10px; 
             font-weight: 700; 
             text-align: center; 
             box-sizing: border-box;
+            font-size: 1em;
         }
         .link { 
             color: #0099FF; 
             text-decoration: none; 
             font-size: 0.9em; 
-            margin-top: -10px; 
+            margin-top: -5px;
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 700;
         }
         .btn { 
             width: 100%; 
@@ -108,25 +115,24 @@
             cursor: pointer; 
             text-decoration: none; 
             display: inline-block; 
-            margin-top: 10px; 
+            margin-top: 15px; 
             flex-shrink: 0; 
             text-align: center;
             box-sizing: border-box;
-            border: 3px solid black;
+            border: none;
+            text-transform: uppercase;
         }
         .btn-primary { 
             background-color: #0099FF; 
             color: white; 
-        }
-        .btn-secondary { 
-            background-color: white; 
-            color: black; 
+            box-shadow: 0 4px 8px rgba(0, 153, 255, 0.3);
         }
         
         /* Mejoras adicionales */
         .input-field:focus {
             outline: none;
-            border-color: #0099FF;
+            border-color: #007acc;
+            box-shadow: 0 0 0 2px rgba(0, 153, 255, 0.2);
         }
         
         .btn:hover {
@@ -140,12 +146,14 @@
         }
         
         .alert {
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             margin-bottom: 15px;
             width: 100%;
             box-sizing: border-box;
             display: none;
+            text-align: center;
+            font-weight: 700;
         }
         
         .alert-error {
@@ -154,19 +162,29 @@
             border: 1px solid #d32f2f;
         }
         
-        .alert-success {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #2e7d32;
-        }
-        
         .user-hint {
-            background-color: #f5f5f5;
+            background-color: #e8f4ff;
             padding: 15px;
             border-radius: 10px;
-            margin-top: 20px;
-            font-size: 0.9em;
+            margin-top: 25px;
+            font-size: 0.85em;
             border: 1px dashed #0099FF;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .user-hint strong {
+            color: #0099FF;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .brand-text {
+            font-weight: 900;
+            color: #0099FF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -182,19 +200,18 @@
             <div id="errorAlert" class="alert alert-error"></div>
             
             <div class="form-group">
-                <input type="email" id="email" class="input-field" placeholder="CORREO">
+                <input type="email" id="email" class="input-field" placeholder="CORREO ELECTRÓNICO" value="admin@fuerzamayor.com">
             </div>
             <div class="form-group">
-                <input type="password" id="password" class="input-field" placeholder="CONTRASEÑA">
+                <input type="password" id="password" class="input-field" placeholder="CONTRASEÑA" value="admin">
             </div>
             
             <a href="restablecer.html" class="link">Restablecer contraseña</a>
             
-            <button id="loginBtn" class="btn btn-primary" style="margin-top: 30px;">INICIAR SESIÓN</button>
-            <a href="registro.html" class="btn btn-secondary">REGISTRARSE</a>
+            <button id="loginBtn" class="btn btn-primary">INICIAR SESIÓN</button>
             
             <div class="user-hint">
-                <strong>Usuario de prueba:</strong><br>
+                <strong>Usuario de prueba:</strong>
                 Correo: admin@fuerzamayor.com<br>
                 Contraseña: admin
             </div>
@@ -248,10 +265,6 @@
                     login();
                 }
             });
-            
-            // Rellenar automáticamente con el usuario de prueba (solo para desarrollo)
-            emailInput.value = 'admin@fuerzamayor.com';
-            passwordInput.value = 'admin';
         });
     </script>
 </body>

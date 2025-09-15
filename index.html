@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Identificación</title>
+    <title>Identificación - Fuerza Mayor</title>
     <style>
-        /* --- ESTE ES EL ÚNICO BLOQUE DE CSS QUE DEBE EXISTIR --- */
+        /* --- RESET & FONT --- */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
         
         html, body {
@@ -15,137 +15,144 @@
             width: 100%;
             height: 100%;
             background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
+        /* --- CONTENEDOR PRINCIPAL --- */
         .app-container {
             width: 100%;
+            max-width: 400px;
             min-height: 100%;
             background-color: white;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
+        /* --- VISTA ESCRITORIO --- */
         @media (min-width: 500px) {
             .app-container {
-                width: 375px;
-                height: 812px;
+                height: 700px;
                 min-height: auto;
-                border: 1px solid #ddd;
-                border-radius: 40px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border-radius: 30px;
                 overflow: hidden;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
             }
         }
 
+        /* --- HEADER --- */
         .header { 
-            background-color: #0099FF; 
+            background: linear-gradient(135deg, #0099FF, #0077CC); 
             color: white; 
-            padding: 20px; 
+            padding: 40px 20px; 
             text-align: center; 
             display: flex; 
+            flex-direction: column;
             align-items: center; 
             justify-content: center; 
-            gap: 15px; 
-            flex-shrink: 0; 
-        }
-        .header .logo { font-size: 3em; }
-        .header h1 { 
-            margin: 0; 
-            font-size: 1.5em; 
-            font-weight: 900; 
-            line-height: 1.2; 
-        }
-        .content { 
-            flex-grow: 1; 
-            padding: 30px 25px; 
-            text-align: center; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
             gap: 20px; 
-            overflow-y: auto; 
         }
-        .content h2 { 
-            font-weight: 900; 
-            font-size: 1.8em; 
-            margin: 0 0 10px 0; 
-        }
+        
         .user-icon { 
             font-size: 5em; 
             background-color: white; 
             color: #0099FF; 
             border-radius: 50%; 
-            padding: 20px; 
-            margin-bottom: 20px; 
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+        
+        .header h1 { 
+            margin: 0; 
+            font-size: 1.8em; 
+            font-weight: 900; 
+            line-height: 1.3;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .content { 
+            flex-grow: 1; 
+            padding: 40px 30px; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .content h2 { 
+            font-weight: 900; 
+            font-size: 2em; 
+            margin: 0;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* --- BOTÓN --- */
         .btn { 
             width: 100%; 
-            padding: 15px; 
+            max-width: 280px;
+            padding: 18px; 
             border-radius: 30px; 
-            font-size: 1.2em; 
+            font-size: 1.3em; 
             font-weight: 900; 
             cursor: pointer; 
             text-decoration: none; 
             display: inline-block; 
-            margin-top: 10px; 
-            flex-shrink: 0; 
             text-align: center;
             box-sizing: border-box;
-        }
-        .btn-primary { 
-            background-color: #0099FF; 
-            color: white; 
-            border: 3px solid black; 
-        }
-        .btn-secondary { 
-            background-color: white; 
-            color: black; 
-            border: 3px solid black; 
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 153, 255, 0.3);
+            background: linear-gradient(135deg, #0099FF, #0077CC);
+            color: white;
         }
         
-        /* Nuevos estilos para mejorar la apariencia */
         .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-            transition: all 0.2s ease;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 153, 255, 0.4);
         }
         
         .btn:active {
             transform: translateY(0);
         }
+        
+        /* --- FOOTER --- */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <div class="header" style="padding-top: 60px; padding-bottom: 40px; flex-direction: column;">
+        <header class="header">
             <div class="user-icon">👤</div>
-            <h1>TRABAJO DE <br> FUERZA MAYOR</h1>
-        </div>
+            <h1>TRABAJO DE<br>FUERZA MAYOR</h1>
+        </header>
+        
         <main class="content">
-            <h2>IDENTIFICATE</h2>
-            <!-- Corregido: cambié el button por un enlace con estilo de botón -->
-            <a href="inicioSesion.html" class="btn btn-primary" style="color: black; border-color:black;" target="_top">USUARIO</a>
+            <h2>IDENTIFÍCATE</h2>
+            <a href="login.html" class="btn">USUARIO</a>
         </main>
+        
+        <div class="footer">
+            &copy; 2023 Fuerza Mayor
+        </div>
     </div>
-
-    <script>
-        // Aquí puedes agregar funcionalidad JavaScript si necesitas que los botones hagan algo más
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Página cargada correctamente');
-            
-            // Ejemplo de cómo agregar funcionalidad a un botón
-            const userButton = document.querySelector('.btn-secondary');
-            if (userButton) {
-                userButton.addEventListener('click', function() {
-                    // Aquí puedes agregar la lógica para la identificación del usuario
-                    console.log('Botón de usuario clickeado');
-                });
-            }
-        });
-    </script>
 </body>
 </html>
