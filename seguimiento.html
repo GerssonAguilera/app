@@ -165,16 +165,19 @@
         .status-abierto {
             background-color: #e8f5e9;
             color: #2e7d32;
+            border-left: 5px solid #2e7d32;
         }
         
         .status-proceso {
             background-color: #fff3e0;
             color: #ef6c00;
+            border-left: 5px solid #ef6c00;
         }
         
         .status-cerrado {
             background-color: #f5f5f5;
             color: #666;
+            border-left: 5px solid #666;
         }
         
         .tramite-details {
@@ -269,15 +272,14 @@
             <h2>TRÁMITES ACTIVOS</h2>
             
             <div class="filters">
-                <button class="filter-btn active">Todos</button>
-                <button class="filter-btn">Abiertos</button>
-                <button class="filter-btn">En Proceso</button>
-                <button class="filter-btn">Cerrados</button>
+                <button class="filter-btn active" data-filter="todos">Todos</button>
+                <button class="filter-btn" data-filter="abierto">Abiertos</button>
+                <button class="filter-btn" data-filter="proceso">En Proceso</button>
             </div>
             
             <div class="tramites-list">
                 <!-- Trámite ABIERTO -->
-                <div class="tramite-card">
+                <div class="tramite-card" data-status="abierto">
                     <div class="tramite-header">
                         <h3 class="tramite-title">Solicitud de Medicamentos</h3>
                         <span class="tramite-status status-abierto">ABIERTO</span>
@@ -303,9 +305,9 @@
                 </div>
                 
                 <!-- Trámite EN PROCESO -->
-                <div class="tramite-card">
+                <div class="tramite-card" data-status="proceso">
                     <div class="tramite-header">
-                        <h3 class="tramite-title">Reparación de Tubería</h3>
+                        <h3 class="tramite-title">Pago de servicios</h3>
                         <span class="tramite-status status-proceso">EN PROCESO</span>
                     </div>
                     <div class="tramite-details">
@@ -328,31 +330,6 @@
                     </div>
                 </div>
                 
-                <!-- Trámite CERRADO -->
-                <div class="tramite-card">
-                    <div class="tramite-header">
-                        <h3 class="tramite-title">Entrega de Alimentos</h3>
-                        <span class="tramite-status status-cerrado">CERRADO</span>
-                    </div>
-                    <div class="tramite-details">
-                        <div class="tramite-detail">
-                            <span class="icon">📍</span>
-                            <span>Calle 80 #12-45, Cali</span>
-                        </div>
-                        <div class="tramite-detail">
-                            <span class="icon">⏰</span>
-                            <span>Urgencia: Baja</span>
-                        </div>
-                        <div class="tramite-detail">
-                            <span class="icon">👤</span>
-                            <span>Operador: María González</span>
-                        </div>
-                    </div>
-                    <div class="tramite-footer">
-                        <span class="tramite-date">Completado: 05/09/2023</span>
-                        <button class="tramite-action">Ver Evaluación</button>
-                    </div>
-                </div>
             </div>
         </main>
         
@@ -364,18 +341,31 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const filterButtons = document.querySelectorAll('.filter-btn');
+            const tramiteCards = document.querySelectorAll('.tramite-card');
             
             // Funcionalidad de filtros
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
                     // Remover clase active de todos los botones
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     
                     // Agregar clase active al botón clickeado
                     this.classList.add('active');
                     
-                    // Aquí iría la lógica para filtrar los trámites
-                    // Por simplicidad, en este ejemplo solo cambiamos el botón activo
+                    // Filtrar los trámites según el estado seleccionado
+                    tramiteCards.forEach(card => {
+                        const status = card.getAttribute('data-status');
+                        
+                        if (filter === 'todos') {
+                            card.style.display = 'block';
+                        } else if (filter === status) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
                 });
             });
             
