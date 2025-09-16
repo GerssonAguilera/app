@@ -159,41 +159,38 @@
             font-size: 1.5em;
             color: white;
             font-weight: 900;
+            flex-shrink: 0;
         }
         
         .operador-info {
             flex-grow: 1;
+            min-width: 0;
         }
         
         .operador-name {
             font-weight: 900;
             font-size: 1.1em;
             color: #333;
-            margin: 0 0 5px 0;
+            margin: 0 0 8px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .operador-details {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 8px;
+            flex-direction: column;
+            gap: 5px;
         }
         
-        .operador-detail {
+        .operador-rating-container {
             display: flex;
             align-items: center;
-            gap: 5px;
-            font-size: 0.8em;
-            color: #666;
-        }
-        
-        .operador-detail .icon {
-            font-size: 1.1em;
+            gap: 8px;
         }
         
         .operador-rating {
             display: flex;
-            align-items: center;
             gap: 2px;
         }
         
@@ -202,8 +199,20 @@
             font-size: 1.1em;
         }
         
+        .operador-time {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .icon {
+            font-size: 1.1em;
+        }
+        
         .operador-action {
-            padding: 10px 20px;
+            padding: 12px 20px;
             background: linear-gradient(135deg, #0099FF, #0077CC);
             color: white;
             border: none;
@@ -213,6 +222,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: auto;
         }
         
         .operador-action:hover {
@@ -252,20 +263,19 @@
                     <div class="operador-info">
                         <h3 class="operador-name">Carlos Rodríguez</h3>
                         <div class="operador-details">
-                            <span class="operador-detail">
-                                <span class="icon">⭐</span>
-                                <span class="operador-rating">
+                            <div class="operador-rating-container">
+                                <div class="operador-rating">
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
-                                </span>
-                            </span>
-                            <span class="operador-detail">
+                                </div>
+                            </div>
+                            <div class="operador-time">
                                 <span class="icon">🚗</span>
-                                5 min
-                            </span>
+                                <span>5 min</span>
+                            </div>
                         </div>
                     </div>
                     <button class="operador-action">SELECCIONAR</button>
@@ -277,20 +287,19 @@
                     <div class="operador-info">
                         <h3 class="operador-name">María González</h3>
                         <div class="operador-details">
-                            <span class="operador-detail">
-                                <span class="icon">⭐</span>
-                                <span class="operador-rating">
+                            <div class="operador-rating-container">
+                                <div class="operador-rating">
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">☆</span>
-                                </span>
-                            </span>
-                            <span class="operador-detail">
+                                </div>
+                            </div>
+                            <div class="operador-time">
                                 <span class="icon">🚗</span>
-                                8 min
-                            </span>
+                                <span>8 min</span>
+                            </div>
                         </div>
                     </div>
                     <button class="operador-action">SELECCIONAR</button>
@@ -302,20 +311,19 @@
                     <div class="operador-info">
                         <h3 class="operador-name">Juan Pérez</h3>
                         <div class="operador-details">
-                            <span class="operador-detail">
-                                <span class="icon">⭐</span>
-                                <span class="operador-rating">
+                            <div class="operador-rating-container">
+                                <div class="operador-rating">
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
                                     <span class="star">★</span>
-                                </span>
-                            </span>
-                            <span class="operador-detail">
+                                </div>
+                            </div>
+                            <div class="operador-time">
                                 <span class="icon">🚗</span>
-                                12 min
-                            </span>
+                                <span>12 min</span>
+                            </div>
                         </div>
                     </div>
                     <button class="operador-action">SELECCIONAR</button>
