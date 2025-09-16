@@ -92,6 +92,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none; /* Añadido para quitar subrayado del enlace */
         }
         
         .back-button:hover {
@@ -212,13 +213,14 @@
         }
         
         .operador-action {
-            padding: 12px 20px;
+            /* --- CAMBIO AQUÍ --- */
+            padding: 10px 15px; /* Reducido para ser más compacto */
+            font-size: 0.85em;  /* Fuente ligeramente más pequeña */
             background: linear-gradient(135deg, #0099FF, #0077CC);
             color: white;
             border: none;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.9em;
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
@@ -257,7 +259,6 @@
             <h2>OPERADORES DISPONIBLES</h2>
             
             <div class="operadores-list">
-                <!-- Operador 1 -->
                 <div class="operador-card">
                     <div class="operador-avatar">CR</div>
                     <div class="operador-info">
@@ -265,11 +266,7 @@
                         <div class="operador-details">
                             <div class="operador-rating-container">
                                 <div class="operador-rating">
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
                                 </div>
                             </div>
                             <div class="operador-time">
@@ -281,7 +278,6 @@
                     <button class="operador-action">SELECCIONAR</button>
                 </div>
                 
-                <!-- Operador 2 -->
                 <div class="operador-card">
                     <div class="operador-avatar">MG</div>
                     <div class="operador-info">
@@ -289,11 +285,7 @@
                         <div class="operador-details">
                             <div class="operador-rating-container">
                                 <div class="operador-rating">
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">☆</span>
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">☆</span>
                                 </div>
                             </div>
                             <div class="operador-time">
@@ -305,7 +297,6 @@
                     <button class="operador-action">SELECCIONAR</button>
                 </div>
                 
-                <!-- Operador 3 -->
                 <div class="operador-card">
                     <div class="operador-avatar">JP</div>
                     <div class="operador-info">
@@ -313,11 +304,7 @@
                         <div class="operador-details">
                             <div class="operador-rating-container">
                                 <div class="operador-rating">
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
-                                    <span class="star">★</span>
+                                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
                                 </div>
                             </div>
                             <div class="operador-time">
@@ -344,8 +331,13 @@
                 button.addEventListener('click', function() {
                     const card = this.closest('.operador-card');
                     const nombre = card.querySelector('.operador-name').textContent;
-                    alert(`Has seleccionado a: ${nombre}`);
-                    // Aquí se redirigiría a la página de confirmación o seguimiento
+                    
+                    // Muestra una confirmación antes de redirigir (opcional pero recomendado)
+                    if (confirm(`¿Deseas seleccionar a ${nombre} y continuar?`)) {
+                        // --- CAMBIO AQUÍ ---
+                        // Redirige al apartado de trámites/detalles
+                        window.location.href = 'detalles.html';
+                    }
                 });
             });
         });
