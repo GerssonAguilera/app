@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento - Fuerza Mayor</title>
+    <style>
+        /* --- RESET & FONT (Mismos de la página anterior) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL (Mismo de la página anterior) --- */
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            min-height: 100%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        @media (min-width: 500px) {
+            .app-container {
+                height: 700px;
+                min-height: auto;
+                border-radius: 30px;
+                overflow: hidden;
+            }
+        }
+
+        /* --- HEADER (Mismo de la página anterior) --- */
+        .header { 
+            background: linear-gradient(135deg, #0099FF, #0077CC); 
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px; 
+            position: relative;
+        }
+        .logo { 
+            font-size: 2.5em; 
+            background-color: white; 
+            color: #0099FF; 
+            border-radius: 50%; 
+            width: 60px; height: 60px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .header h1 { 
+            margin: 0; font-size: 1.6em; font-weight: 900; line-height: 1.3;
+            text-transform: uppercase; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .back-button {
+            position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.2);
+            border: none; border-radius: 50%; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: all 0.3s ease; text-decoration: none;
+        }
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3); transform: translateX(-3px);
+        }
+        .back-button .arrow {
+            color: white; font-size: 1.5em; font-weight: bold;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .content { 
+            flex-grow: 1; 
+            padding: 30px 25px; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-y: auto;
+        }
+        
+        .content h2 { 
+            font-weight: 900; font-size: 1.8em; margin: 0 0 35px 0;
+            color: #333; text-transform: uppercase; letter-spacing: 1px;
+            text-align: center;
+        }
+
+        /* --- ESTILOS DEL TRACKER DE PROGRESO --- */
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        /* Línea gris de fondo */
+        .progress-tracker::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #e0e0e0;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        /* Línea azul de progreso */
+        #progress-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 4px;
+            background-color: #0099FF;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 50%; /* Inicia en 50% para estar en "En Proceso" */
+            transition: width 0.4s ease;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 3;
+            text-align: center;
+        }
+
+        .step-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            border: 4px solid #f0f2f5; /* Borde para separar de la línea */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            transition: background-color 0.4s ease;
+        }
+
+        .step-label {
+            margin-top: 10px;
+            font-size: 0.8em;
+            font-weight: 700;
+            color: #888;
+            transition: color 0.4s ease;
+        }
+
+        /* Estilos para pasos completados y activos */
+        .step.completed .step-icon {
+            background-color: #0099FF;
+        }
+        .step.completed .step-label {
+            color: #333;
+        }
+        
+        /* --- INFO DEL OPERADOR --- */
+        .operador-info-card {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        .operador-info-card h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        .operador-info-card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        /* --- BOTÓN FINALIZAR --- */
+        .finish-button {
+            margin-top: auto; /* Empuja el botón hacia abajo */
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #28a745, #218838); /* Verde */
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-weight: 900;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+        .finish-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+        }
+        
+        /* --- FOOTER (Mismo de la página anterior) --- */
+        .footer {
+            padding: 15px; text-align: center; color: #888;
+            font-size: 0.8em; font-weight: 700; background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <a href="operadores.html" class="back-button">
+                <span class="arrow">←</span>
+            </a>
+            <div class="logo">✊</div>
+            <h1>SEGUIMIENTO<br>DEL SERVICIO</h1>
+        </header>
+        
+        <main class="content">
+            <h2>ESTADO DEL TRÁMITE</h2>
+            
+            <div class="progress-tracker">
+                <div id="progress-line"></div>
+                <div class="step completed" id="step-inicio">
+                    <div class="step-icon">✔</div>
+                    <div class="step-label">Inicio</div>
+                </div>
+                <div class="step completed" id="step-proceso">
+                    <div class="step-icon">2</div>
+                    <div class="step-label">En Proceso</div>
+                </div>
+                <div class="step" id="step-finalizado">
+                    <div class="step-icon">3</div>
+                    <div class="step-label">Finalizado</div>
+                </div>
+            </div>
+            
+            <div class="operador-info-card">
+                <h3>Operador Asignado: Carlos Rodríguez</h3>
+                <p>Vehículo en camino - Llegada estimada en 5 min.</p>
+            </div>
+            
+            <button class="finish-button" id="finalizarBtn">Finalizar Servicio</button>
+        </main>
+        
+        <div class="footer">
+            &copy; 2023 Fuerza Mayor
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const finalizarBtn = document.getElementById('finalizarBtn');
+            
+            finalizarBtn.addEventListener('click', function() {
+                // Alerta de confirmación (opcional)
+                if (confirm('¿Estás seguro de que deseas finalizar el servicio?')) {
+                    // Redirige a la sección de trámites
+                    window.location.href = 'tramites.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
